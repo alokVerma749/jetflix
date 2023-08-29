@@ -1,10 +1,14 @@
+import { backgroundImageUrl } from "../utils/constants";
+import Header from "./Header";
+import LoginForm from "./LoginForm";
 const Login = () => {
     return (
-        <div>
-            <form action="">
-                <label htmlFor="email/phoneNumber"></label>
-                <input type="text" id="email/phoneNumber" placeholder="" />
-            </form>
+        <div className="bg-cover bg-center h-screen overflow-hidden"
+            style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
+            <Header />
+            <div className="h-screen bg-black bg-opacity-50 flex justify-center items-center">
+                <LoginForm />
+            </div>
         </div>
     )
 }
