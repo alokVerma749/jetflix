@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import checkValidData from '../utils/validate';
+import signup from '../helpers/signup';
+import signin from '../helpers/signin';
 
 const AuthForm = () => {
     const [isSignInPage, setIsSignInPage] = useState(true);
@@ -13,6 +15,14 @@ const AuthForm = () => {
     const handleButtonClick = () => {
         const validateErrorMsg = checkValidData(email.current.value, password.current.value);
         setValidateError(validateErrorMsg);
+        if (validateError) return;
+        if (!isSignInPage) {
+            const response = signup(email.current.value, password.current.value);
+            if (!response) setValidateError(response)
+        } else {
+            const response = signin(email.current.value, password.current.value);
+            if (!response) setValidateError(response)
+        }
     }
 
     return (
