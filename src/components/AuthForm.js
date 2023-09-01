@@ -12,16 +12,23 @@ const AuthForm = () => {
     const handleToggle = () => {
         setIsSignInPage(!isSignInPage);
     }
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         const validateErrorMsg = checkValidData(email.current.value, password.current.value);
         setValidateError(validateErrorMsg);
-        if (validateError) return;
-        if (!isSignInPage) {
-            const response = signup(email.current.value, password.current.value);
-            if (!response) setValidateError(response)
-        } else {
-            const response = signin(email.current.value, password.current.value);
-            if (!response) setValidateError(response)
+        if (!validateError) {
+            if (!isSignInPage) {
+                try {
+                    await signup(email.current.value, password.current.value);
+                } catch (error) {
+                    setValidateError(error.message);
+                }
+            } else {
+                try {
+                    await signin(email.current.value, password.current.value);
+                } catch (error) {
+                    setValidateError(error.message);
+                }
+            }
         }
     }
 
